@@ -1,0 +1,47 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#settings {
+    display: flex;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 500px;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.column {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.row {
+    height: 100%;
+    width:100%;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.active {
+    background-color: black;
+}
