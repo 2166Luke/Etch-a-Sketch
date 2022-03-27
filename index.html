@@ -13,10 +13,24 @@
     </div>
     <div class="main">
     <div id="settings">
+        <div class="colorContainer">
+            <div>
+                <input type="color" id="colorSelect">
+                <p>Color</p>
+            </div>
+            <div>
+                <input type="color" id="backgroundColor" value="#FFFFFF">
+                <p>Background Color</p>
+            </div>
+        </div>
         <div class="sliderContainer">
-            <input type="range" max="100" min="1" value="16" class="slider" id="myRange">
+            <input type="range" max="60" min="1" value="16" class="slider" id="myRange">
             <p class="gridSize"></p>
         </div>
+        <button class="eraser">Eraser</button>
+        <button class="rainbow">Rainbow</button>
+        <button class="shade">Shade</button>
+        <button class="lighten">Lighten</button>
         <button class="reset">Reset Board</button>
     </div>
     <div id="container"></div>

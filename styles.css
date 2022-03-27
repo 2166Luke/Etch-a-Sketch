@@ -7,20 +7,22 @@ body{
     justify-content: space-between;
 }
 
-
-
-
 .main {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
 
+/* setting container elements*/
 #settings {
     display: flex;
     flex-direction: column;
 }
 
+
+
+
+/*sketch pad container elements*/
 #container {
     display: flex;
     flex-direction: column;
@@ -41,8 +43,4 @@ body{
     width:100%;
     border-top: 1px solid rgb(179, 179, 179);
     border-left: 1px solid rgb(179, 179, 179);
-}
-
-.active {
-    background-color: black;
 }
