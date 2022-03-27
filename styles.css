@@ -18,6 +18,7 @@ body{
 
 #settings {
     display: flex;
+    flex-direction: column;
 }
 
 #container {
@@ -25,8 +26,8 @@ body{
     flex-direction: column;
     height: 500px;
     width: 500px;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+    border-bottom: 1px solid rgb(179, 179, 179);
+    border-right: 1px solid rgb(179, 179, 179);
 }
 
 .column {
@@ -38,8 +39,8 @@ body{
 .row {
     height: 100%;
     width:100%;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
+    border-top: 1px solid rgb(179, 179, 179);
+    border-left: 1px solid rgb(179, 179, 179);
 }
 
 .active {

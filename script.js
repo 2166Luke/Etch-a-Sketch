@@ -1,28 +1,23 @@
 const container = document.querySelector('#container');
 const resetBtn = document.querySelector('.reset');
+const slider = document.getElementById('myRange')
+let gridSize = document.querySelector('.gridSize')
 
-let num1 = 5;
-let num2 = 5;
+let num = 16;
+gridSize.textContent = `${num} X ${num}`
 
-let array1 = [];
-let array2 = [];
+let array = [];
 
-const toArray1 = function(num1){
-    for (let i = 1; i <= num1; i++){
-        array1.push(i);
+const toArray = function(num){
+    for (let i = 1; i <= num; i++){
+        array.push(i);
     }
 }
 
-const toArray2 = function(num2){
-    for (let i = 1; i <= num2; i++){
-        array2.push(i);
-    }
-}
-toArray1(num1);
-toArray2(num2);
+toArray(num);
 
 const createCol = function(){
-    array1.forEach(num => {
+    array.forEach(num => {
         const column = document.createElement('div');
         column.classList.add('column');
         container.appendChild(column);
@@ -32,7 +27,7 @@ createCol();
 const createRows = function(){
         document.querySelectorAll('.column').forEach(
             function(element){
-                array2.forEach(num => {
+                array.forEach(num => {
                     const row = document.createElement('div');
                     row.classList.add('row');
                     element.appendChild(row);
@@ -41,12 +36,29 @@ const createRows = function(){
 }
 createRows();
 
+const removeGrid = function(parent){
+    while (parent.lastChild) {
+        parent.removeChild(parent.lastChild)
+    }
+    return
+}
+
 //function for coloring modifying the squares
 document.querySelectorAll('.row').forEach(element => {
     element.addEventListener('mousedown', function(){
     element.classList.add('active');
     });
 })
+
+//logic for slider to change grid size
+slider.oninput = function(){
+    removeGrid(container);
+    let num = this.value;
+    gridSize.textContent = `${num} X ${num}`;
+    createCol();
+    createRows();
+}
+
 
 //logic for reset button
 resetBtn.addEventListener('click', function (){
