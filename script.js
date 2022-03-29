@@ -2,7 +2,7 @@ const container = document.querySelector('#container');
 const resetBtn = document.querySelector('.reset');
 const slider = document.getElementById('myRange');
 let gridSize = document.querySelector('.gridSize');
-const colorSelect = document.getElementById('colorSelect');
+let colorSelect = document.getElementById('colorSelect');
 const background = document.getElementById('backgroundColor');
 
 //default grid size upon page load
@@ -30,7 +30,7 @@ const createRows = function(){
         document.querySelectorAll('.column').forEach(
             function(element){
                 array.forEach(num => {
-                    const row = document.createElement('div');
+                    let row = document.createElement('div');
                     row.classList.add('row');
                     element.appendChild(row);
             });    
@@ -71,22 +71,41 @@ slider.onchange = function(){
 }
 
 //function for coloring modifying the squares
-const color = function(){
-    backgroundColor = colorSelect.value;
-}
 
+const paintGrid = function (color){
+    document.querySelectorAll('.row').forEach(element=>{
+        element.style.backgroundColor = color;
+    })
+}     
+     
+const selectedColor = colorSelect.value
+
+/*
 const modify = function(){
     document.querySelectorAll('.row').forEach(element => {
-        element.addEventListener('mouseenter', color)
+        element.addEventListener('mouseenter', paintGrid(element, selectedColor));
     })
 }
 
 document.addEventListener('mousedown', modify)
-document.addEventListener('mouseup', function (){
-    document.querySelectorAll('.row').forEach(element => {
-        element.removeEventListener('mouseenter', color)
+
+
+container.addEventListener('mousedown', event => {
+    if(event.buttons == 1){
+        window.addEventListener('mouseenter', (e) => {
+            paintGrid(e, selectedColor)
+        })
+    }
+})
+*/
+document.addEventListener('mousedown', function (){
+    document.querySelectorAll('.row').forEach(element =>{
+        element.addEventListener('mouseenter', function (){
+             paintGrid(selectedColor);
+        })
     })
 })
+
 
 
 
