@@ -69,40 +69,30 @@ slider.onchange = function(){
         createGrid();
     }
 }
+let selectedColor = colorSelect.value;
 
+colorSelect.onchange = function(){
+    selectedColor = colorSelect.value
+}
 //function for coloring modifying the squares
 
-const paintGrid = function (color){
-    document.querySelectorAll('.row').forEach(element=>{
+const paintGrid = function (element, color){
+    element.addEventListener('mouseenter', function (){
         element.style.backgroundColor = color;
-    })
+    }) 
 }     
-     
-const selectedColor = colorSelect.value
 
-/*
-const modify = function(){
-    document.querySelectorAll('.row').forEach(element => {
-        element.addEventListener('mouseenter', paintGrid(element, selectedColor));
-    })
-}
-
-document.addEventListener('mousedown', modify)
-
-
-container.addEventListener('mousedown', event => {
-    if(event.buttons == 1){
-        window.addEventListener('mouseenter', (e) => {
-            paintGrid(e, selectedColor)
-        })
-    }
-})
-*/
 document.addEventListener('mousedown', function (){
     document.querySelectorAll('.row').forEach(element =>{
-        element.addEventListener('mouseenter', function (){
-             paintGrid(selectedColor);
-        })
+        let selectedColor = colorSelect.value
+        element.addEventListener('mouseenter', paintGrid(element, selectedColor))
+    })
+})
+
+document.addEventListener('mouseup', function (){
+    document.querySelectorAll('.row').forEach(element =>{
+        let selectedColor = colorSelect.value
+        element.removeEventListener('mouseenter', paintGrid(element, selectedColor))
     })
 })
 
