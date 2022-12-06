@@ -5,22 +5,61 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    background-color: #D1D3C4;
 }
 
 .main {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    background-color: #DFE0DC;
+    gap: 20px;
+    height: 550px;
+    width: 770px;
 }
 
 /* setting container elements*/
 #settings {
     display: flex;
     flex-direction: column;
+    height: 460px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eff0eb;
+    border-radius: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
+.colorContainer {
+    display: flex;
+    flex-direction: column;
+}
 
+.colorContainer > div{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+}
 
+.settingBtns {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 8px;
+}
+
+button {
+    width: 90%;
+    border: 2px solid #BDC696;
+    border-radius: 3px;
+    height: 35px;
+    color: #BDC696;
+    background-color: #eff0eb;
+    font-size: 16px;
+}
 
 /*sketch pad container elements*/
 #container {
@@ -30,6 +69,7 @@ body{
     width: 500px;
     border-bottom: 1px solid rgb(179, 179, 179);
     border-right: 1px solid rgb(179, 179, 179);
+    background-color: white;
 }
 
 .column {
