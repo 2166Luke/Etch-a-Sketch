@@ -174,7 +174,7 @@ const rgbGen = () => {
 const darkenColor = (col) => {
     let usePound = false;
     if (col[0] == '#'){
-        col = col.slice[1];
+        col = col.slice(1);
         usePound = true;
     }
 
@@ -198,7 +198,7 @@ const darkenColor = (col) => {
 const lightenColor = (col) => {
     let usePound = false;
     if (col[0] == '#'){
-        col = col.slice[1];
+        col = col.slice(1);
         usePound = true;
     }
 
@@ -229,10 +229,10 @@ const paintGrid = function (element){
             }else if(rainbowOn){
                 square.style.backgroundColor = randomColor;
             }else if(shadeOn){
-                let base = darkenColor(square);
+                let base = darkenColor(square.style.backgroundColor);
                 square.style.backgroundColor = base;
             }else if(lightenOn){
-                let base = lightenColor(square);
+                let base = lightenColor(square.style.backgroundColor);
                 square.style.backgroundColor = base;
             }else {
                 square.style.backgroundColor = selectedColor;
