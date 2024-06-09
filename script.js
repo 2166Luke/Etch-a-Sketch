@@ -194,8 +194,32 @@ const darkenColor = (col) => {
     else if (g < 0) g = 0;
     return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
 }
-//function for coloring modifying the squares
 
+const lightenColor = (col) => {
+    let usePound = false;
+    if (col[0] == '#'){
+        col = col.slice[1];
+        usePound = true;
+    }
+
+    let num = parseInt(col, 16);
+    let r = (num >> 16) + 20;
+    if (r > 255) r = 255;
+    else if  (r < 0) r = 0;
+ 
+    let b = ((num >> 8) & 0x00FF) + 20;
+ 
+    if (b > 255) b = 255;
+    else if  (b < 0) b = 0;
+ 
+    let g = (num & 0x0000FF) + 20;
+ 
+    if (g > 255) g = 255;
+    else if (g < 0) g = 0;
+    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+}
+
+//function for coloring modifying the squares
 const paintGrid = function (element){
     if (element.buttons == 1){
         if (element.target.classList == 'row'){
@@ -205,10 +229,11 @@ const paintGrid = function (element){
             }else if(rainbowOn){
                 square.style.backgroundColor = randomColor;
             }else if(shadeOn){
-                let base = square.style.backgroundColor
-                darkenColor(base);
+                let base = darkenColor(square.style.backgroundColor);
+                square.style.backgroundColor = base;
             }else if(lightenOn){
-
+                let base = lightenColor(square.style.backgroundColor);
+                square.style.backgroundColor = base;
             }else {
                 square.style.backgroundColor = selectedColor;
             }
