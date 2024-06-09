@@ -229,10 +229,10 @@ const paintGrid = function (element){
             }else if(rainbowOn){
                 square.style.backgroundColor = randomColor;
             }else if(shadeOn){
-                let base = darkenColor(square.style.backgroundColor);
+                let base = darkenColor(square);
                 square.style.backgroundColor = base;
             }else if(lightenOn){
-                let base = lightenColor(square.style.backgroundColor);
+                let base = lightenColor(square);
                 square.style.backgroundColor = base;
             }else {
                 square.style.backgroundColor = selectedColor;
