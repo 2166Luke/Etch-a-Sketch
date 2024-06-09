@@ -253,9 +253,9 @@ document.addEventListener('mousedown', event => {
         window.addEventListener('mouseover', (e) => {
             if(rainbowOn){
                 rgbGen();
-                paintGrid(e);
+                paintGrid(event);
             }else {
-                paintGrid(e);
+                paintGrid(event);
             }
         });
     } else {
