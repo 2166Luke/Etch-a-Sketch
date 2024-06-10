@@ -42,6 +42,7 @@ const createRows = function(){
                     let row = document.createElement('div');
                     row.classList.add('row');
                     element.appendChild(row);
+                    row.style.backgroundColor = background.value;
             });    
             });
 }
@@ -179,20 +180,11 @@ const darkenColor = (col) => {
     }
 
     let num = parseInt(col, 16);
-    let r = (num >> 16) - 20;
-    if (r > 255) r = 255;
-    else if  (r < 0) r = 0;
- 
-    let b = ((num >> 8) & 0x00FF) - 20;
- 
-    if (b > 255) b = 255;
-    else if  (b < 0) b = 0;
- 
-    let g = (num & 0x0000FF) - 20;
- 
-    if (g > 255) g = 255;
-    else if (g < 0) g = 0;
-    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+    let r = Math.max(0, Math.min(255, (num >> 16) - 20));
+    let g = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) - 20));
+    let b = Math.max(0, Math.min(255, (num & 0x0000FF) - 20));
+
+    return (usePound?"#":"") + ((g | (b << 8) | (r << 16))).toString(16).padStart(6, '0');
 }
 
 const lightenColor = (col) => {
@@ -203,37 +195,49 @@ const lightenColor = (col) => {
     }
 
     let num = parseInt(col, 16);
-    let r = (num >> 16) + 20;
-    if (r > 255) r = 255;
-    else if  (r < 0) r = 0;
- 
-    let b = ((num >> 8) & 0x00FF) + 20;
- 
-    if (b > 255) b = 255;
-    else if  (b < 0) b = 0;
- 
-    let g = (num & 0x0000FF) + 20;
- 
-    if (g > 255) g = 255;
-    else if (g < 0) g = 0;
-    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
-}
+    let r = Math.max(0, Math.min(255, (num >> 16) + 20));
+    let g = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) + 20));
+    let b = Math.max(0, Math.min(255, (num & 0x0000FF) + 20));
 
+    return (usePound?"#":"") + ((g | (b << 8) | (r << 16))).toString(16).padStart(6, '0');
+}
 //function for coloring modifying the squares
 const paintGrid = function (element){
     if (element.buttons == 1){
-        if (element.target.classList == 'row'){
+        if (element.target.classList.contains('row')){
             let square = element.target;
             if(eraserOn){
-                square.style.backgroundColor = null
+                square.style.backgroundColor = background.value;
             }else if(rainbowOn){
                 square.style.backgroundColor = randomColor;
             }else if(shadeOn){
-                let base = darkenColor(square.style.backgroundColor);
-                square.style.backgroundColor = base;
+                let backgroundColor = square.style.backgroundColor;
+                if (backgroundColor && backgroundColor!== '') {
+                    let rgb = backgroundColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+                    if (rgb) {
+                        let r = parseInt(rgb[1]);
+                        let g = parseInt(rgb[2]);
+                        let b = parseInt(rgb[3]);
+                        let hexColor = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+                        let base = darkenColor(hexColor);
+                        square.style.backgroundColor = base;
+                        setTimeout(paintGrid, 2000)
+                    }
+                }
             }else if(lightenOn){
-                let base = lightenColor(square.style.backgroundColor);
-                square.style.backgroundColor = base;
+                let backgroundColor = square.style.backgroundColor;
+                if (backgroundColor && backgroundColor!== '') {
+                    let rgb = backgroundColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+                    if (rgb) {
+                        let r = parseInt(rgb[1]);
+                        let g = parseInt(rgb[2]);
+                        let b = parseInt(rgb[3]);
+                        let hexColor = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+                        let base = lightenColor(hexColor);
+                        square.style.backgroundColor = base;
+                        setTimeout(paintGrid, 2000)
+                    }
+                }
             }else {
                 square.style.backgroundColor = selectedColor;
             }
@@ -241,8 +245,7 @@ const paintGrid = function (element){
             return;
         }
     }
-} 
-
+}
 document.addEventListener('mousedown', event => {
     if(eraserOn){
         paintGridEvent = paintGrid(event);
@@ -253,9 +256,9 @@ document.addEventListener('mousedown', event => {
         window.addEventListener('mouseover', (e) => {
             if(rainbowOn){
                 rgbGen();
-                paintGrid(event);
+                paintGrid(e);
             }else {
-                paintGrid(event);
+                paintGrid(e);
             }
         });
     } else {
@@ -267,6 +270,6 @@ document.addEventListener('mousedown', event => {
 //logic for reset button
 resetBtn.addEventListener('click', function (){
     document.querySelectorAll('.row').forEach(element => {
-        element.style.backgroundColor = null;
+        element.style.backgroundColor = background.value;
     })
 });
